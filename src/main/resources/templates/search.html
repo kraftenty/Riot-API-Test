@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>검색 결과</title>
+</head>
+<body>
+    <h1>검색 결과</h1>
+    <hr>
+    <img th:src="${profileIconURL}" alt="소환사 아이콘" width="100" height="100"/>
+    <div th:text="'프로필 아이콘 id = ' +  ${summonerDTO.profileIconId}">기본id</div>
+    <div th:text="'소환사 이름 = ' + ${summonerDTO.name}">기본이름</div>
+    <div th:text="'소환사 레벨 = ' + ${summonerDTO.summonerLevel}">기본레벨</div>
+
+    <hr>
+    <h2>챔피언 숙련도</h2>
+    <table>
+        <tr>
+            <th>챔피언id</th>
+            <th>챔피언레벨</th>
+            <th>포인트</th>
+        </tr>
+        <tr th:each="championMasteryDTOEach : ${championMasteryDTOList}">
+            <td th:text="${championMasteryDTOEach.championId}"></td>
+            <td th:text="${championMasteryDTOEach.championLevel}"></td>
+            <td th:text="${championMasteryDTOEach.championPoints}"></td>
+        </tr>
+    </table>
+</body>
+</html>
