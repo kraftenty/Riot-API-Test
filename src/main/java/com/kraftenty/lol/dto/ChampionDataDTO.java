@@ -1,17 +1,16 @@
 package com.kraftenty.lol.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Map;
 
 
 @Getter @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @ToString
 public class ChampionDataDTO {
+
 
     private Map<String, ChampionDTO> data;
 
@@ -23,10 +22,10 @@ public class ChampionDataDTO {
          * "name": "아트록스",
          * "title": "다르킨의 검",
          */
-        private String id;
-        private String key;
-        private String name;
-        private String title;
+        private String id; // 영어이름
+        private String key; // 숫자
+        private String name; // 한국이름
+        private String title; // 부가설명
     }
 
 }

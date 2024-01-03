@@ -17,4 +17,8 @@ public class ChampionMasteryDTO {
     private Long championId;
     private Integer championLevel;
     private Integer championPoints;
+
+    // 추후에 넣어질 필드
+    private String championName="";
+    private String championPortraitImgURL="";
 }

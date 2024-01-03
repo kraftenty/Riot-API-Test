@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>검색 결과</title>
+    <style>
+         table {
+             border-collapse: collapse;
+         }
+         th,td {
+             border: 1px solid #000;
+         }
+    </style>
 </head>
 <body>
     <h1>검색 결과</h1>
@@ -24,6 +32,10 @@
             <td th:text="${championMasteryDTOEach.championId}"></td>
             <td th:text="${championMasteryDTOEach.championLevel}"></td>
             <td th:text="${championMasteryDTOEach.championPoints}"></td>
+            <td th:text="${championMasteryDTOEach.championName}"></td>
+            <td>
+                <img th:src="${championMasteryDTOEach.championPortraitImgURL}" alt="초상화">
+            </td>
         </tr>
     </table>
 </body>

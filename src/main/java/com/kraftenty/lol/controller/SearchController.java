@@ -2,11 +2,10 @@ package com.kraftenty.lol.controller;
 
 import com.fasterxml.jackson.databind.deser.BasicDeserializerFactory;
 import com.kraftenty.lol.dto.AccountDTO;
+import com.kraftenty.lol.dto.ChampionDataDTO;
 import com.kraftenty.lol.dto.ChampionMasteryDTO;
 import com.kraftenty.lol.dto.SummonerDTO;
-import com.kraftenty.lol.service.AccountService;
-import com.kraftenty.lol.service.ChampionMasteryService;
-import com.kraftenty.lol.service.SummonerService;
+import com.kraftenty.lol.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +23,8 @@ public class SearchController {
     private final AccountService accountService;
     private final SummonerService summonerService;
     private final ChampionMasteryService championMasteryService;
-
+    private final ChampionDataService championDataService;
+    private final ChampionImgService championImgService;
 
     @GetMapping("/search")
     public String search(@RequestParam String gameName, @RequestParam String tagLine, Model model) {
@@ -43,11 +43,13 @@ public class SearchController {
 
         // 3번. PUUID를 가지고 숙련도 정보를 받아온다.
         List<ChampionMasteryDTO> championMasteryDTOList = championMasteryService.getChampionMasteryInformationsByPUUID(accontDTO.getPuuid(), 5);
-//        for (ChampionMasteryDTO championMasteryDTOEach : championMasteryDTOList) {
-//
-//        }
+        for (ChampionMasteryDTO championMasteryDTOEach : championMasteryDTOList) {
+            ChampionDataDTO.ChampionDTO championDTO = championDataService.getChampionInfoByChampionId(Long.toString(championMasteryDTOEach.getChampionId()));
+            championMasteryDTOEach.setChampionName(championDTO.getName());
+            // 이미지 가져오는 서비스 만들고, 그 서비스로 하여금 championMasteryDTOEach에다가 url을 넣어줘야한다.
+            championMasteryDTOEach.setChampionPortraitImgURL(championImgService.getChampionPortraitImgURLByChampionName(championDTO.getId()));
+        }
         model.addAttribute("championMasteryDTOList", championMasteryDTOList);
-
 
         return "search";
     }
